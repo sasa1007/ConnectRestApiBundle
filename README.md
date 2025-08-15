@@ -232,4 +232,4 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 ## Support
 
-For questions and support, please open an issue on GitHub or contact us at info@backend2-plus.com.
+For questions and support, please open an issue on GitHub or contact us at sasam09@gmail.com.
