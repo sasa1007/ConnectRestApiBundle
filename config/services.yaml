@@ -1,0 +1,6 @@
+services:
+    BeckUp\ConnectRestApiBundle\Service\ConnectRestApiService:
+        arguments:
+            $client: '@http_client'
+            $params: '@parameter_bag'
+        tags: []

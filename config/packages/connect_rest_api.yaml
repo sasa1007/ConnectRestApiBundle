@@ -1,0 +1,3 @@
+connect_rest_api:
+    username: '%env(CONNECT_REST_API_USERNAME)%'
+    password: '%env(CONNECT_REST_API_PASSWORD)%'
