@@ -1,6 +1,6 @@
 <?php
 
-namespace BeckUp\ConnectRestApiBundle;
+namespace Backend2Plus\ConnectRestApiBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

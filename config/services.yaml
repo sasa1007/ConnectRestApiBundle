@@ -1,5 +1,5 @@
 services:
-    BeckUp\ConnectRestApiBundle\Service\ConnectRestApiService:
+    Backend2Plus\ConnectRestApiBundle\Service\ConnectRestApiService:
         arguments:
             $client: '@http_client'
             $params: '@parameter_bag'

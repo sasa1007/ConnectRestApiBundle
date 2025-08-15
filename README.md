@@ -5,7 +5,7 @@ Jednostavan Symfony bundle za povezivanje sa REST API-jevima sa osnovnom autenti
 ## Instalacija
 
 ```bash
-composer require beckup/connect-rest-api-bundle
+composer require backend2-plus/connect-rest-api-bundle
 ```
 
 ## Registracija
@@ -13,7 +13,7 @@ composer require beckup/connect-rest-api-bundle
 Dodajte u `config/bundles.php`:
 
 ```php
-BeckUp\ConnectRestApiBundle\ConnectRestApiBundle::class => ['all' => true],
+Backend2Plus\ConnectRestApiBundle\ConnectRestApiBundle::class => ['all' => true],
 ```
 
 ## Konfiguracija
@@ -27,7 +27,7 @@ CONNECT_REST_API_PASSWORD=your_password
 ## Korišćenje
 
 ```php
-use BeckUp\ConnectRestApiBundle\Service\ConnectRestApiService;
+use Backend2Plus\ConnectRestApiBundle\Service\ConnectRestApiService;
 
 // U controller-u
 $response = $this->connectRestApiService->connector('GET', 'https://api.example.com/endpoint');

@@ -1,14 +1,14 @@
 {
-    "name": "beckup/connect-rest-api-bundle",
+    "name": "backend2-plus/connect-rest-api-bundle",
     "description": "REST API connection bundle for Symfony with authentication support",
     "type": "symfony-bundle",
     "license": "MIT",
     "keywords": ["symfony", "bundle", "rest", "api", "http", "client", "authentication"],
-    "homepage": "https://github.com/beckup/connect-rest-api-bundle",
+    "homepage": "https://github.com/sasa1007/ConnectRestApiBundle",
     "authors": [
         {
-            "name": "BeckUp Team",
-            "email": "info@beckup.com"
+            "name": "Backend2 Plus",
+            "email": "info@backend2-plus.com"
         }
     ],
     "require": {
@@ -20,7 +20,7 @@
 
     "autoload": {
         "psr-4": {
-            "BeckUp\\ConnectRestApiBundle\\": "src/"
+            "Backend2Plus\\ConnectRestApiBundle\\": "src/"
         }
     },
     "extra": {
