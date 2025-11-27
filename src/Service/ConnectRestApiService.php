@@ -10,12 +10,12 @@ use Symfony\Contracts\HttpClient\Exception\HttpExceptionInterface;
 use InvalidArgumentException;
 
 /**
- * Service za povezivanje sa REST API-jevima sa Basic Authentication podrškom.
+ * Service for connecting to REST APIs with Basic Authentication support.
  */
 class ConnectRestApiService
 {
     /**
-     * Podržane HTTP metode
+     * Supported HTTP methods
      */
     private const SUPPORTED_METHODS = ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS'];
 
@@ -26,48 +26,48 @@ class ConnectRestApiService
     }
 
     /**
-     * Šalje HTTP zahtev na određeni endpoint sa Basic Authentication.
+     * Sends HTTP request to specified endpoint with Basic Authentication.
      *
-     * @param string $method HTTP metoda (GET, POST, PUT, DELETE, PATCH, HEAD, OPTIONS)
-     * @param string $url URL endpoint-a
-     * @param array|null $data Podaci za slanje (za POST, PUT, PATCH metode)
-     * @param array $options Dodatne opcije za HTTP zahtev
+     * @param string $method HTTP method (GET, POST, PUT, DELETE, PATCH, HEAD, OPTIONS)
+     * @param string $url URL endpoint
+     * @param array|null $data Data to send (for POST, PUT, PATCH methods)
+     * @param array $options Additional options for HTTP request
      * 
-     * @return ResponseInterface Symfony HTTP Client response objekat
+     * @return ResponseInterface Symfony HTTP Client response object
      * 
-     * @throws InvalidArgumentException Ako je metoda ili URL nevalidan
-     * @throws TransportExceptionInterface Ako dođe do network greške
-     * @throws HttpExceptionInterface Ako server vrati HTTP grešku
+     * @throws InvalidArgumentException If method or URL is invalid
+     * @throws TransportExceptionInterface If network error occurs
+     * @throws HttpExceptionInterface If server returns HTTP error
      */
     public function connector(string $method, string $url, ?array $data = null, array $options = []): ResponseInterface
     {
-        // Validacija HTTP metode
+        // Validate HTTP method
         $method = strtoupper(trim($method));
         if (!in_array($method, self::SUPPORTED_METHODS)) {
             throw new InvalidArgumentException(
-                sprintf('Nepodržana HTTP metoda: %s. Podržane metode su: %s', 
+                sprintf('Unsupported HTTP method: %s. Supported methods are: %s', 
                     $method, 
                     implode(', ', self::SUPPORTED_METHODS)
                 )
             );
         }
 
-        // Validacija URL-a
+        // Validate URL
         if (empty($url) || !filter_var($url, FILTER_VALIDATE_URL)) {
-            throw new InvalidArgumentException('Nevalidan URL: ' . $url);
+            throw new InvalidArgumentException('Invalid URL: ' . $url);
         }
 
-        // Uzimanje kredencijala iz konfiguracije
+        // Get credentials from configuration
         $username = $this->params->get('connect_rest_api.username');
         $password = $this->params->get('connect_rest_api.password');
 
         if (empty($username) || empty($password)) {
             throw new InvalidArgumentException(
-                'Kredencijali za REST API nisu konfigurisani. Proverite CONNECT_REST_API_USERNAME i CONNECT_REST_API_PASSWORD environment varijable.'
+                'REST API credentials are not configured. Please check CONNECT_REST_API_USERNAME and CONNECT_REST_API_PASSWORD environment variables.'
             );
         }
 
-        // Priprema opcija za HTTP zahtev
+        // Prepare options for HTTP request
         $requestOptions = array_merge([
             'auth_basic' => [$username, $password],
             'headers' => [
@@ -77,20 +77,20 @@ class ConnectRestApiService
             'timeout' => 30,
         ], $options);
 
-        // Dodavanje body-a za metode koje ga zahtevaju
+        // Add body for methods that require it
         if (in_array($method, ['POST', 'PUT', 'PATCH']) && $data !== null) {
             $requestOptions['body'] = json_encode($data, JSON_UNESCAPED_UNICODE);
         }
 
-        // Slanje zahteva
+        // Send request
         return $this->client->request($method, $url, $requestOptions);
     }
 
     /**
-     * Šalje GET zahtev na određeni endpoint.
+     * Sends GET request to specified endpoint.
      *
-     * @param string $url URL endpoint-a
-     * @param array $options Dodatne opcije za HTTP zahtev
+     * @param string $url URL endpoint
+     * @param array $options Additional options for HTTP request
      * 
      * @return ResponseInterface
      */
@@ -100,11 +100,11 @@ class ConnectRestApiService
     }
 
     /**
-     * Šalje POST zahtev sa podacima na određeni endpoint.
+     * Sends POST request with data to specified endpoint.
      *
-     * @param string $url URL endpoint-a
-     * @param array $data Podaci za slanje
-     * @param array $options Dodatne opcije za HTTP zahtev
+     * @param string $url URL endpoint
+     * @param array $data Data to send
+     * @param array $options Additional options for HTTP request
      * 
      * @return ResponseInterface
      */
@@ -114,11 +114,11 @@ class ConnectRestApiService
     }
 
     /**
-     * Šalje PUT zahtev sa podacima na određeni endpoint.
+     * Sends PUT request with data to specified endpoint.
      *
-     * @param string $url URL endpoint-a
-     * @param array $data Podaci za slanje
-     * @param array $options Dodatne opcije za HTTP zahtev
+     * @param string $url URL endpoint
+     * @param array $data Data to send
+     * @param array $options Additional options for HTTP request
      * 
      * @return ResponseInterface
      */
@@ -128,10 +128,10 @@ class ConnectRestApiService
     }
 
     /**
-     * Šalje DELETE zahtev na određeni endpoint.
+     * Sends DELETE request to specified endpoint.
      *
-     * @param string $url URL endpoint-a
-     * @param array $options Dodatne opcije za HTTP zahtev
+     * @param string $url URL endpoint
+     * @param array $options Additional options for HTTP request
      * 
      * @return ResponseInterface
      */
@@ -141,11 +141,11 @@ class ConnectRestApiService
     }
 
     /**
-     * Šalje PATCH zahtev sa podacima na određeni endpoint.
+     * Sends PATCH request with data to specified endpoint.
      *
-     * @param string $url URL endpoint-a
-     * @param array $data Podaci za slanje
-     * @param array $options Dodatne opcije za HTTP zahtev
+     * @param string $url URL endpoint
+     * @param array $data Data to send
+     * @param array $options Additional options for HTTP request
      * 
      * @return ResponseInterface
      */

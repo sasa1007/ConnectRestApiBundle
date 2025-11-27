@@ -222,8 +222,8 @@ try {
 
 ## Requirements
 
-- PHP 8.0 or higher
-- Symfony 6.0 or higher
+- PHP 8.1 or higher
+- Symfony 7.0 or 8.0
 - Symfony HTTP Client component
 
 ## License
